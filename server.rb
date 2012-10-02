@@ -27,6 +27,7 @@ get "/callback" do
     code: request.params["code"]})
     #pp request.params["code"]
     #pp data
+    pp "Response data from app.net: #{data.body}"
     response = JSON.parse(data.body) 
     session[:auth] = response["access_token"] if response["access_token"]
     session[:username] = response["username"] if response["username"]
@@ -45,7 +46,7 @@ get "/auth" do
 end
 
 before do
-  pp request.path_info
+  pp "Requesting url: #{request.path_info}"
   redirect "/auth" unless session[:auth] || ["/auth","/callback"].any?{|r| r == request.path_info }
 end
 
