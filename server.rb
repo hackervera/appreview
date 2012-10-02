@@ -23,7 +23,7 @@ get "/callback" do
     {client_id: "phEGhv9wPDAxdKRzX4crcaKDgVLbDMAa",
     client_secret: "E7v3PCT5NQj5Ykcb44h9MKLDYaZdKTT8",
     grant_type: "authorization_code",
-    redirect_uri: "http://localhost:9393/callback",
+    redirect_uri: "http://#{request.host_with_port}/callback",
     code: request.params["code"]})
     #pp request.params["code"]
     #pp data
