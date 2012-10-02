@@ -36,11 +36,12 @@ end
 
 get "/" do
   pp session[:auth]
+  pp request.host_with_port
   erb :main
 end
 
 get "/auth" do
-  redirect "https://alpha.app.net/oauth/authenticate?client_id=phEGhv9wPDAxdKRzX4crcaKDgVLbDMAa&response_type=code&redirect_uri=http://localhost:9393/callback&scope=write_post"
+  redirect "https://alpha.app.net/oauth/authenticate?client_id=phEGhv9wPDAxdKRzX4crcaKDgVLbDMAa&response_type=code&redirect_uri=http://#{request.host_with_port}/callback&scope=write_post"
 end
 
 before do
