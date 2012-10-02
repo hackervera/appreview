@@ -32,7 +32,7 @@ get "/callback" do
     session[:auth] = response["access_token"] if response["access_token"]
     session[:username] = response["username"] if response["username"]
     #pp data.body
-    redirect "/"
+    redirect session[:request_url]
 end
 
 get "/" do
@@ -47,7 +47,10 @@ end
 
 before do
   pp "Requesting url: #{request.path_info}"
-  redirect "/auth" unless session[:auth] || ["/auth","/callback"].any?{|r| r == request.path_info }
+   unless session[:auth] || ["/auth","/callback"].any?{|r| r == request.path_info }
+     session[:request_url] = request.path_info
+     redirect "/auth"
+   end
 end
 
 post "/create/picture" do
