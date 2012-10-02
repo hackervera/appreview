@@ -1,0 +1,27 @@
+<p> 
+<%= @picture_data['caption'] %>, posted by <%= @poster %> </p> <%= "<img src=#{@picture_data['image']}>" %>
+
+
+  <% 
+  @reply_data.each do |reply|
+    username = reply["user"]["name"]
+    annotations = reply["annotations"].first
+    next if annotations["type"] != "com.pdxbrain.review"
+    review_data = annotations["value"] 
+    %>
+     <p>
+     Comment: <%= review_data['comment'] %><br>Rating: <%= review_data['rating'] %><br> Created by:  
+     <%= username %>
+     </p>
+<% end %>
+
+
+
+<p><b>Create review</b></p>
+<form action="/create/review" action="post">
+  <input name="reply_to" value="<%= @id %>" type="hidden">
+  Comment: <input name="comment"><br>
+  Rating: <input name="rating"><br>
+  <input type="submit">
+</form>
+  
