@@ -18,10 +18,12 @@
 
 
 <p><b>Create review</b></p>
-<form action="/create/review" action="post">
+<form action="/create/review" method="post">
   <input name="reply_to" value="<%= @id %>" type="hidden">
   Comment: <input name="comment"><br>
   Rating: <input name="rating"><br>
   <input type="submit">
 </form>
+
+<p><a href='/'>Back Home</a></p>
   

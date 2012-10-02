@@ -50,8 +50,8 @@ before do
   redirect "/auth" unless session[:auth] || ["/auth","/callback"].any?{|r| r == request.path_info }
 end
 
-get "/create/picture" do
-  picture = Picture.new(image_url: request.params["image_url"], caption: request.params["caption"])
+post "/create/picture" do
+  picture = Picture.new(session, image_url: request.params["image_url"], caption: request.params["caption"])
   data = picture.save
   id = JSON.parse(data.body)["id"]
   magic = WebMagic.new
@@ -59,8 +59,8 @@ get "/create/picture" do
 end
 
 
-get "/create/review" do
-  review = Review.new(comment: request.params["comment"], rating: request.params["rating"], reply_to: request.params["reply_to"])
+post "/create/review" do
+  review = Review.new(session, comment: request.params["comment"], rating: request.params["rating"], reply_to: request.params["reply_to"])
   data = review.save
   id = JSON.parse(data.body)["id"]
   redirect "/picture/#{request.params["reply_to"]}"

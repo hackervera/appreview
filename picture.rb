@@ -4,7 +4,7 @@ require 'json'
 require 'pp'
 
 class Picture
-  def initialize(options)
+  def initialize(session, options)
     @magic = WebMagic.new
     @url = "https://alpha-api.app.net/stream/0/posts?include_annotations=1&access_token=#{session[:auth]}"
     
